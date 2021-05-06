@@ -6,6 +6,19 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <% if user_signed_in? %>
+          <%= form_with url: search_path, local: true, method: :get, class: "form-inline my-2 my-lg-0" do |f| %>
+            <%= f.text_field :keyword, placeholder: "検索キーワード",
+              class: "form-control form-control-sm mr-sm-1 mb-2 mb-sm-0" %>
+            <%= f.select :search_target, {"Book": "Book", "User": "User"}, {selected: "Book"}, 
+              class: "form-control form-control-sm mr-sm-1 mb-2 mb-sm-0" %>
+            <%= f.select :match_type, {"完全一致": 1, "前方一致": 2,"後方一致": 3, "部分一致": 4}, {selected: 1}, 
+              class: "form-control form-control-sm mr-sm-1 mb-2 mb-sm-0" %>
+            <%= f.submit "検索", 
+              class: "btn btn-sm btn-secondary" %>
+          <% end %>
+        <% end %>
+
         <ul class="navbar-nav ml-auto">
         <% if user_signed_in? %>
           <li><%= link_to ' Home',user_path(current_user),class: 'fas fa-home nav-link text-light' %></li>
