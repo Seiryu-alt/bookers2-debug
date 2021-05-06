@@ -7,8 +7,8 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
-  has_many :followers, class_name: "User", foreign_key: "follower_id", dependent: :destroy
-  has_many :followeds, class_name: "User", foreign_key: "followed_id", dependent: :destroy
+  has_many :followers, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :followeds, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
 
   attachment :profile_image, destroy: false
 
@@ -16,5 +16,6 @@ class User < ApplicationRecord
   validates :introduction, length: {maximum: 50}
 
   def followed_by?(user)
-    Relationship.where(follower_id:user.id, followed_id:current_user.id).exists?
+    Relationship.where(follower_id:user.id, followed_id:self.id).exists?
+  end
 end
