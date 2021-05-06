@@ -18,4 +18,14 @@ class RelationshipsController < ApplicationController
     end
     redirect_back(fallback_location: root_path)
   end
+
+  def following
+    user = User.find(params[:user_id])
+    @following_users = user.following_users
+  end
+
+  def followers
+    user = User.find(params[:user_id])
+    @follower_users = user.follower_users
+  end
 end
