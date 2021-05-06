@@ -22,9 +22,5 @@ class SearchController < ApplicationController
     end
 
     @results = target_model.where("#{target_column} like ?", @search_keyword)
-    puts "----------------------params------------------------"
-    p @results.model == User
-    puts "----------------------------------------------------"
-
   end
 end
