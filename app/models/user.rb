@@ -16,6 +16,23 @@ class User < ApplicationRecord
 
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
+  validates :postal_code, length: {is: 7}
+  validates :prefecture_code, inclusion: 1..47
+  validates :address_city, presence: true
+  validates :address_street, presence: true
+
+  include JpPrefecture
+  jp_prefecture :prefecture_code
+
+  def prefecture_name
+    JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
+  end
+  
+  def prefecture_name=(prefecture_name)
+    self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
+  end
+
+
 
   def followed_by?(user)
     Relationship.where(follower_id:user.id, followed_id:self.id).exists?

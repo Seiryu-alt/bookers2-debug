@@ -4,24 +4,43 @@
       <h2>Sign up</h2>
       <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
-        <div class="field">
-          <%= f.label :name %><br />
-          <%= f.text_field :name, autofocus: true, class: "name" %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, autofocus: true, class: "name form-control" %>
         </div>
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, class: "email" %>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, class: "email form-control" %>
         </div>
-        <div class="field">
+
+        <div class="form-group">
+          <%= f.label :postal_code, "Postal code" %>
+          <%= f.number_field :postal_code, autofocus: true, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :prefecture_code, "Prefecture code" %>
+          <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, 
+            { prompt: '選択してください' }, autofocus: true, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :address_city, "City" %>
+          <%= f.text_field :address_city, autofocus: true, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :address_street, "Street" %>
+          <%= f.text_field :address_street, autofocus: true, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
           <%= f.label :password %>
           <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %><br />
-          <%= f.password_field :password, autocomplete: "off", class: "password" %>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "off", class: "password form-control" %>
         </div>
-        <div class="field">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off", class: "password_confirm" %>
+        <div class="form-group">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "password_confirm form-control" %>
         </div>
         <div class="actions">
           <%= f.submit "Sign up" ,class: 'btn btn-sm btn-success' %>
