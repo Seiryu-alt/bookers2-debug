@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_many :following_users, through: :follower, source: :followed
   has_many :follower_users, through: :followed, source: :follower
 
+  has_many :user_rooms
+  has_many :chats
+  has_many :rooms, through: :user_rooms
+
   attachment :profile_image, destroy: false
 
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
