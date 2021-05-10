@@ -13,12 +13,13 @@ class ChatsController < ApplicationController
       @room = user_room.room
     end
     @chats = @room.chats
-    @chat = chat.new(room_id: @room.id)
+    @chat = Chat.new(room_id: @room.id)
   end
 
   def create
     @chat = current_user.chats.new(chat_params)
     @chat.save
+    @chats = @chat.room.chats
   end
 
   private

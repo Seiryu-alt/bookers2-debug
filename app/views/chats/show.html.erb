@@ -1,2 +1,16 @@
-<h1>Chats#show</h1>
-<p>Find me in app/views/chats/show.html.erb</p>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class='col-md-12'>
+      <h2><%= @user.name %> さんとのチャット</h2>
+      <%= form_with model:@chat, remote:true, id:"chat_form" do |f| %>
+        <%= render 'layouts/errors', obj: @chat %>
+        <%= f.hidden_field :room_id %>
+        <%= f.text_field :message, class: "form-control" %>
+        <% f.submit %>
+      <% end %>
+      <div id='chat_messages'>
+        <%= render 'chats/messages', chats: @chats %>
+      </div>
+    </div>
+  </div>
+</div>
