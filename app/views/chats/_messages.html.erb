@@ -1,10 +1,15 @@
-<table class='table'>
-  <tbody>
-    <% chats.each do |chat| %>
-      <tr>
-        <td><%= chat.user.name %></td>
-        <td><%= chat.message %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<ul class="list-unstyled">
+  <% chats.each do |chat| %>
+    <li class="media mt-3">
+      <%= attachment_image_tag(chat.user, :profile_image, size: "50x50", fallback: "no-image-icon.jpg", class: "mr-3 rounded-lg") %>
+      <div class="media-body">
+        <h6>
+          <%= chat.user.name %>
+        </h6>
+        <div class="text-break">
+          <%= chat.message %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
